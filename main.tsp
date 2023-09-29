@@ -35,25 +35,7 @@ interface Pools {
   @route("/pools")
   @get
   op listPools(
-
-    @doc("""
-An OData $filter clause. For more information on constructing this filter, see
-https://docs.microsoft.com/en-us/rest/api/batchservice/odata-filters-in-batch#list-pools.
-""")
-    @query
-    $filter?: string,
-
-    @doc("An OData $select clause.")
-    @query({
-      format: "csv",
-    })
-    $select?: string[],
-
-    @doc("An OData $expand clause.")
-    @query({
-      format: "csv",
-    })
-    $expand?: string[]
+    ...BatchRequestHeaders
   ): BatchResponseHeaders & BatchPoolListResult | BatchError;
 
 
@@ -61,25 +43,7 @@ https://docs.microsoft.com/en-us/rest/api/batchservice/odata-filters-in-batch#li
   @route("/pools2")
   @get
   op listPools2(
-
-    @doc("""
-An OData $filter clause. For more information on constructing this filter, see
-https://docs.microsoft.com/en-us/rest/api/batchservice/odata-filters-in-batch#list-pools.
-""")
-    @query
-    $filter?: string,
-
-    @doc("An OData $select clause.")
-    @query({
-      format: "csv",
-    })
-    $select?: string[],
-
-    @doc("An OData $expand clause.")
-    @query({
-      format: "csv",
-    })
-    $expand?: string[]
+    ...BatchRequestHeaders
   ): BatchPoolListResult | BatchError;
 
 
@@ -87,26 +51,32 @@ https://docs.microsoft.com/en-us/rest/api/batchservice/odata-filters-in-batch#li
   @route("/pools3")
   @get
   listPools3 is RpcOperation<
-  {
-    @doc("""
-An OData $filter clause. For more information on constructing this filter, see
-https://docs.microsoft.com/en-us/rest/api/batchservice/odata-filters-in-batch#list-pools.
-""")
-    @query
-    $filter?: string;
-
-    @doc("An OData $select clause.")
-    @query({ format: "csv" })
-    $select?: string[];
-
-    @doc("An OData $expand clause.")
-    @query({ format: "csv" })
-    $expand?: string[];
-  },
+  BatchRequestHeaders,
   BatchResponseHeaders & BatchPoolListResult,
   {},
   BatchError
 >;
+}
+
+
+
+#suppress "@azure-tools/typespec-azure-core/casing-style" "The names of Model types must use camelCase"
+@doc("Client related response header values")
+model BatchRequestHeaders {
+    @doc("""
+    An OData $filter clause. For more information on constructing this filter, see
+    https://docs.microsoft.com/en-us/rest/api/batchservice/odata-filters-in-batch#list-pools.
+    """)
+        @query
+        $filter?: string;
+    
+        @doc("An OData $select clause.")
+        @query({ format: "csv" })
+        $select?: string[];
+    
+        @doc("An OData $expand clause.")
+        @query({ format: "csv" })
+        $expand?: string[];
 }
 
 
