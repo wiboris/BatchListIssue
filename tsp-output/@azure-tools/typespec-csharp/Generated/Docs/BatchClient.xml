@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <members>
+    <member name="GetPoolsAsync(string,IEnumerable{string},IEnumerable{string},CancellationToken)">
+      <example>
+This sample shows how to call GetPoolsAsync.
+<code><![CDATA[
+BatchClient client = new BatchClient();
+
+Response<BatchPoolListResult> response = await client.GetPoolsAsync();
+]]></code>
+This sample shows how to call GetPoolsAsync with all parameters.
+<code><![CDATA[
+BatchClient client = new BatchClient();
+
+Response<BatchPoolListResult> response = await client.GetPoolsAsync(filter: "<$filter>", select: new string[] { "<$select>" }, expand: new string[] { "<$expand>" });
+]]></code></example>
+    </member>
+    <member name="GetPools(string,IEnumerable{string},IEnumerable{string},CancellationToken)">
+      <example>
+This sample shows how to call GetPools.
+<code><![CDATA[
+BatchClient client = new BatchClient();
+
+Response<BatchPoolListResult> response = client.GetPools();
+]]></code>
+This sample shows how to call GetPools with all parameters.
+<code><![CDATA[
+BatchClient client = new BatchClient();
+
+Response<BatchPoolListResult> response = client.GetPools(filter: "<$filter>", select: new string[] { "<$select>" }, expand: new string[] { "<$expand>" });
+]]></code></example>
+    </member>
+    <member name="GetPoolsAsync(string,IEnumerable{string},IEnumerable{string},RequestContext)">
+      <example>
+This sample shows how to call GetPoolsAsync and parse the result.
+<code><![CDATA[
+BatchClient client = new BatchClient();
+
+Response response = await client.GetPoolsAsync(null, null, null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call GetPoolsAsync with all parameters and parse the result.
+<code><![CDATA[
+BatchClient client = new BatchClient();
+
+Response response = await client.GetPoolsAsync("<$filter>", new string[] { "<$select>" }, new string[] { "<$expand>" }, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("displayName").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("url").ToString());
+Console.WriteLine(result.GetProperty("odata.nextLink").ToString());
+]]></code></example>
+    </member>
+    <member name="GetPools(string,IEnumerable{string},IEnumerable{string},RequestContext)">
+      <example>
+This sample shows how to call GetPools and parse the result.
+<code><![CDATA[
+BatchClient client = new BatchClient();
+
+Response response = client.GetPools(null, null, null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call GetPools with all parameters and parse the result.
+<code><![CDATA[
+BatchClient client = new BatchClient();
+
+Response response = client.GetPools("<$filter>", new string[] { "<$select>" }, new string[] { "<$expand>" }, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("displayName").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("url").ToString());
+Console.WriteLine(result.GetProperty("odata.nextLink").ToString());
+]]></code></example>
+    </member>
+    <member name="GetPools3sAsync(string,IEnumerable{string},IEnumerable{string},CancellationToken)">
+      <example>
+This sample shows how to call GetPools3sAsync.
+<code><![CDATA[
+BatchClient client = new BatchClient();
+
+Response<BatchPoolListResult> response = await client.GetPools3sAsync();
+]]></code>
+This sample shows how to call GetPools3sAsync with all parameters.
+<code><![CDATA[
+BatchClient client = new BatchClient();
+
+Response<BatchPoolListResult> response = await client.GetPools3sAsync(filter: "<$filter>", select: new string[] { "<$select>" }, expand: new string[] { "<$expand>" });
+]]></code></example>
+    </member>
+    <member name="GetPools3s(string,IEnumerable{string},IEnumerable{string},CancellationToken)">
+      <example>
+This sample shows how to call GetPools3s.
+<code><![CDATA[
+BatchClient client = new BatchClient();
+
+Response<BatchPoolListResult> response = client.GetPools3s();
+]]></code>
+This sample shows how to call GetPools3s with all parameters.
+<code><![CDATA[
+BatchClient client = new BatchClient();
+
+Response<BatchPoolListResult> response = client.GetPools3s(filter: "<$filter>", select: new string[] { "<$select>" }, expand: new string[] { "<$expand>" });
+]]></code></example>
+    </member>
+    <member name="GetPools3sAsync(string,IEnumerable{string},IEnumerable{string},RequestContext)">
+      <example>
+This sample shows how to call GetPools3sAsync and parse the result.
+<code><![CDATA[
+BatchClient client = new BatchClient();
+
+Response response = await client.GetPools3sAsync(null, null, null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call GetPools3sAsync with all parameters and parse the result.
+<code><![CDATA[
+BatchClient client = new BatchClient();
+
+Response response = await client.GetPools3sAsync("<$filter>", new string[] { "<$select>" }, new string[] { "<$expand>" }, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("displayName").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("url").ToString());
+Console.WriteLine(result.GetProperty("odata.nextLink").ToString());
+]]></code></example>
+    </member>
+    <member name="GetPools3s(string,IEnumerable{string},IEnumerable{string},RequestContext)">
+      <example>
+This sample shows how to call GetPools3s and parse the result.
+<code><![CDATA[
+BatchClient client = new BatchClient();
+
+Response response = client.GetPools3s(null, null, null, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.ToString());
+]]></code>
+This sample shows how to call GetPools3s with all parameters and parse the result.
+<code><![CDATA[
+BatchClient client = new BatchClient();
+
+Response response = client.GetPools3s("<$filter>", new string[] { "<$select>" }, new string[] { "<$expand>" }, null);
+
+JsonElement result = JsonDocument.Parse(response.ContentStream).RootElement;
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("id").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("displayName").ToString());
+Console.WriteLine(result.GetProperty("value")[0].GetProperty("url").ToString());
+Console.WriteLine(result.GetProperty("odata.nextLink").ToString());
+]]></code></example>
+    </member>
+    <member name="GetPools2sAsync(string,IEnumerable{string},IEnumerable{string},CancellationToken)">
+      <example>
+This sample shows how to call GetPools2sAsync.
+<code><![CDATA[
+BatchClient client = new BatchClient();
+
+await foreach (BatchPool item in client.GetPools2sAsync())
+{
+}
+]]></code>
+This sample shows how to call GetPools2sAsync with all parameters.
+<code><![CDATA[
+BatchClient client = new BatchClient();
+
+await foreach (BatchPool item in client.GetPools2sAsync(filter: "<$filter>", select: new string[] { "<$select>" }, expand: new string[] { "<$expand>" }))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetPools2s(string,IEnumerable{string},IEnumerable{string},CancellationToken)">
+      <example>
+This sample shows how to call GetPools2s.
+<code><![CDATA[
+BatchClient client = new BatchClient();
+
+foreach (BatchPool item in client.GetPools2s())
+{
+}
+]]></code>
+This sample shows how to call GetPools2s with all parameters.
+<code><![CDATA[
+BatchClient client = new BatchClient();
+
+foreach (BatchPool item in client.GetPools2s(filter: "<$filter>", select: new string[] { "<$select>" }, expand: new string[] { "<$expand>" }))
+{
+}
+]]></code></example>
+    </member>
+    <member name="GetPools2sAsync(string,IEnumerable{string},IEnumerable{string},RequestContext)">
+      <example>
+This sample shows how to call GetPools2sAsync and parse the result.
+<code><![CDATA[
+BatchClient client = new BatchClient();
+
+await foreach (BinaryData item in client.GetPools2sAsync(null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.ToString());
+}
+]]></code>
+This sample shows how to call GetPools2sAsync with all parameters and parse the result.
+<code><![CDATA[
+BatchClient client = new BatchClient();
+
+await foreach (BinaryData item in client.GetPools2sAsync("<$filter>", new string[] { "<$select>" }, new string[] { "<$expand>" }, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("displayName").ToString());
+    Console.WriteLine(result.GetProperty("url").ToString());
+}
+]]></code></example>
+    </member>
+    <member name="GetPools2s(string,IEnumerable{string},IEnumerable{string},RequestContext)">
+      <example>
+This sample shows how to call GetPools2s and parse the result.
+<code><![CDATA[
+BatchClient client = new BatchClient();
+
+foreach (BinaryData item in client.GetPools2s(null, null, null, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.ToString());
+}
+]]></code>
+This sample shows how to call GetPools2s with all parameters and parse the result.
+<code><![CDATA[
+BatchClient client = new BatchClient();
+
+foreach (BinaryData item in client.GetPools2s("<$filter>", new string[] { "<$select>" }, new string[] { "<$expand>" }, null))
+{
+    JsonElement result = JsonDocument.Parse(item.ToStream()).RootElement;
+    Console.WriteLine(result.GetProperty("id").ToString());
+    Console.WriteLine(result.GetProperty("displayName").ToString());
+    Console.WriteLine(result.GetProperty("url").ToString());
+}
+]]></code></example>
+    </member>
+  </members>
+</doc>
