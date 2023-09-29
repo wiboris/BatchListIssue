@@ -21,39 +21,22 @@
   ],
   "tags": [],
   "paths": {
-    "/pools": {
+    "/pools1": {
       "get": {
-        "operationId": "Pools_ListPools",
+        "operationId": "Pools_ListPools1",
         "description": "Lists all of the Pools in the specified Account.",
         "parameters": [
           {
-            "name": "$filter",
-            "in": "query",
-            "description": "An OData $filter clause. For more information on constructing this filter, see\nhttps://docs.microsoft.com/en-us/rest/api/batchservice/odata-filters-in-batch#list-pools.",
-            "required": false,
-            "type": "string"
+            "$ref": "#/parameters/Azure.Core.Foundations.ApiVersionParameter"
           },
           {
-            "name": "$select",
-            "in": "query",
-            "description": "An OData $select clause.",
-            "required": false,
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "collectionFormat": "csv"
+            "$ref": "#/parameters/BatchRequestHeaders.%24filter"
           },
           {
-            "name": "$expand",
-            "in": "query",
-            "description": "An OData $expand clause.",
-            "required": false,
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "collectionFormat": "csv"
+            "$ref": "#/parameters/BatchRequestHeaders.%24select"
+          },
+          {
+            "$ref": "#/parameters/BatchRequestHeaders.%24expand"
           }
         ],
         "responses": {
@@ -100,90 +83,13 @@
         "description": "Lists all of the Pools in the specified Account.",
         "parameters": [
           {
-            "name": "$filter",
-            "in": "query",
-            "description": "An OData $filter clause. For more information on constructing this filter, see\nhttps://docs.microsoft.com/en-us/rest/api/batchservice/odata-filters-in-batch#list-pools.",
-            "required": false,
-            "type": "string"
+            "$ref": "#/parameters/BatchRequestHeaders.%24filter"
           },
           {
-            "name": "$select",
-            "in": "query",
-            "description": "An OData $select clause.",
-            "required": false,
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "collectionFormat": "csv"
+            "$ref": "#/parameters/BatchRequestHeaders.%24select"
           },
           {
-            "name": "$expand",
-            "in": "query",
-            "description": "An OData $expand clause.",
-            "required": false,
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "collectionFormat": "csv"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "The request has succeeded.",
-            "schema": {
-              "$ref": "#/definitions/BatchPoolListResult"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/BatchError"
-            }
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "odata.nextLink"
-        }
-      }
-    },
-    "/pools3": {
-      "get": {
-        "operationId": "Pools_ListPools3",
-        "description": "Lists all of the Pools in the specified Account.",
-        "parameters": [
-          {
-            "$ref": "#/parameters/Azure.Core.Foundations.ApiVersionParameter"
-          },
-          {
-            "name": "$filter",
-            "in": "query",
-            "description": "An OData $filter clause. For more information on constructing this filter, see\nhttps://docs.microsoft.com/en-us/rest/api/batchservice/odata-filters-in-batch#list-pools.",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "$select",
-            "in": "query",
-            "description": "An OData $select clause.",
-            "required": false,
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "collectionFormat": "csv"
-          },
-          {
-            "name": "$expand",
-            "in": "query",
-            "description": "An OData $expand clause.",
-            "required": false,
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "collectionFormat": "csv"
+            "$ref": "#/parameters/BatchRequestHeaders.%24expand"
           }
         ],
         "responses": {
@@ -210,6 +116,40 @@
                 "format": "date-time-rfc7231",
                 "description": "The time at which the resource was last modified."
               }
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/BatchError"
+            }
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "odata.nextLink"
+        }
+      }
+    },
+    "/pools3": {
+      "get": {
+        "operationId": "Pools_ListPools3",
+        "description": "Lists all of the Pools in the specified Account.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/BatchRequestHeaders.%24filter"
+          },
+          {
+            "$ref": "#/parameters/BatchRequestHeaders.%24select"
+          },
+          {
+            "$ref": "#/parameters/BatchRequestHeaders.%24expand"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "schema": {
+              "$ref": "#/definitions/BatchPoolListResult"
             }
           },
           "default": {
@@ -350,6 +290,38 @@
       "minLength": 1,
       "x-ms-parameter-location": "method",
       "x-ms-client-name": "apiVersion"
+    },
+    "BatchRequestHeaders.$expand": {
+      "name": "$expand",
+      "in": "query",
+      "description": "An OData $expand clause.",
+      "required": false,
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "collectionFormat": "csv",
+      "x-ms-parameter-location": "method"
+    },
+    "BatchRequestHeaders.$filter": {
+      "name": "$filter",
+      "in": "query",
+      "description": "An OData $filter clause. For more information on constructing this filter, see\nhttps://docs.microsoft.com/en-us/rest/api/batchservice/odata-filters-in-batch#list-pools.",
+      "required": false,
+      "type": "string",
+      "x-ms-parameter-location": "method"
+    },
+    "BatchRequestHeaders.$select": {
+      "name": "$select",
+      "in": "query",
+      "description": "An OData $select clause.",
+      "required": false,
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "collectionFormat": "csv",
+      "x-ms-parameter-location": "method"
     }
   }
 }

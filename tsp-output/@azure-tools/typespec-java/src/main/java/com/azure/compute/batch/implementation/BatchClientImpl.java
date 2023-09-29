@@ -145,7 +145,7 @@ public final class BatchClientImpl {
     @Host("{endpoint}")
     @ServiceInterface(name = "BatchClient")
     public interface BatchClientService {
-        @Get("/pools")
+        @Get("/pools1")
         @ExpectedResponses({200})
         @UnexpectedResponseExceptionType(
                 value = ClientAuthenticationException.class,
@@ -157,13 +157,14 @@ public final class BatchClientImpl {
                 value = ResourceModifiedException.class,
                 code = {409})
         @UnexpectedResponseExceptionType(HttpResponseException.class)
-        Mono<Response<BinaryData>> listPools(
+        Mono<Response<BinaryData>> listPools1(
                 @HostParam("endpoint") String endpoint,
+                @QueryParam("api-version") String apiVersion,
                 @HeaderParam("accept") String accept,
                 RequestOptions requestOptions,
                 Context context);
 
-        @Get("/pools")
+        @Get("/pools1")
         @ExpectedResponses({200})
         @UnexpectedResponseExceptionType(
                 value = ClientAuthenticationException.class,
@@ -175,8 +176,9 @@ public final class BatchClientImpl {
                 value = ResourceModifiedException.class,
                 code = {409})
         @UnexpectedResponseExceptionType(HttpResponseException.class)
-        Response<BinaryData> listPoolsSync(
+        Response<BinaryData> listPools1Sync(
                 @HostParam("endpoint") String endpoint,
+                @QueryParam("api-version") String apiVersion,
                 @HeaderParam("accept") String accept,
                 RequestOptions requestOptions,
                 Context context);
@@ -231,7 +233,6 @@ public final class BatchClientImpl {
         @UnexpectedResponseExceptionType(HttpResponseException.class)
         Mono<Response<BinaryData>> listPools3(
                 @HostParam("endpoint") String endpoint,
-                @QueryParam("api-version") String apiVersion,
                 @HeaderParam("accept") String accept,
                 RequestOptions requestOptions,
                 Context context);
@@ -250,7 +251,6 @@ public final class BatchClientImpl {
         @UnexpectedResponseExceptionType(HttpResponseException.class)
         Response<BinaryData> listPools3Sync(
                 @HostParam("endpoint") String endpoint,
-                @QueryParam("api-version") String apiVersion,
                 @HeaderParam("accept") String accept,
                 RequestOptions requestOptions,
                 Context context);
@@ -267,7 +267,7 @@ public final class BatchClientImpl {
                 value = ResourceModifiedException.class,
                 code = {409})
         @UnexpectedResponseExceptionType(HttpResponseException.class)
-        Mono<Response<BinaryData>> listPoolsNext(
+        Mono<Response<BinaryData>> listPools1Next(
                 @PathParam(value = "nextLink", encoded = true) String nextLink,
                 @HostParam("endpoint") String endpoint,
                 @HeaderParam("accept") String accept,
@@ -286,7 +286,7 @@ public final class BatchClientImpl {
                 value = ResourceModifiedException.class,
                 code = {409})
         @UnexpectedResponseExceptionType(HttpResponseException.class)
-        Response<BinaryData> listPoolsNextSync(
+        Response<BinaryData> listPools1NextSync(
                 @PathParam(value = "nextLink", encoded = true) String nextLink,
                 @HostParam("endpoint") String endpoint,
                 @HeaderParam("accept") String accept,
@@ -405,9 +405,16 @@ public final class BatchClientImpl {
      *     of {@link Mono}.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<PagedResponse<BinaryData>> listPoolsSinglePageAsync(RequestOptions requestOptions) {
+    private Mono<PagedResponse<BinaryData>> listPools1SinglePageAsync(RequestOptions requestOptions) {
         final String accept = "application/json";
-        return FluxUtil.withContext(context -> service.listPools(this.getEndpoint(), accept, requestOptions, context))
+        return FluxUtil.withContext(
+                        context ->
+                                service.listPools1(
+                                        this.getEndpoint(),
+                                        this.getServiceVersion().getVersion(),
+                                        accept,
+                                        requestOptions,
+                                        context))
                 .map(
                         res ->
                                 new PagedResponseBase<>(
@@ -453,15 +460,15 @@ public final class BatchClientImpl {
      * @return the result of listing the Pools in an Account as paginated response with {@link PagedFlux}.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
-    public PagedFlux<BinaryData> listPoolsAsync(RequestOptions requestOptions) {
+    public PagedFlux<BinaryData> listPools1Async(RequestOptions requestOptions) {
         RequestOptions requestOptionsForNextPage = new RequestOptions();
         requestOptionsForNextPage.setContext(
                 requestOptions != null && requestOptions.getContext() != null
                         ? requestOptions.getContext()
                         : Context.NONE);
         return new PagedFlux<>(
-                () -> listPoolsSinglePageAsync(requestOptions),
-                nextLink -> listPoolsNextSinglePageAsync(nextLink, requestOptionsForNextPage));
+                () -> listPools1SinglePageAsync(requestOptions),
+                nextLink -> listPools1NextSinglePageAsync(nextLink, requestOptionsForNextPage));
     }
 
     /**
@@ -498,9 +505,15 @@ public final class BatchClientImpl {
      * @return the result of listing the Pools in an Account along with {@link PagedResponse}.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private PagedResponse<BinaryData> listPoolsSinglePage(RequestOptions requestOptions) {
+    private PagedResponse<BinaryData> listPools1SinglePage(RequestOptions requestOptions) {
         final String accept = "application/json";
-        Response<BinaryData> res = service.listPoolsSync(this.getEndpoint(), accept, requestOptions, Context.NONE);
+        Response<BinaryData> res =
+                service.listPools1Sync(
+                        this.getEndpoint(),
+                        this.getServiceVersion().getVersion(),
+                        accept,
+                        requestOptions,
+                        Context.NONE);
         return new PagedResponseBase<>(
                 res.getRequest(),
                 res.getStatusCode(),
@@ -544,15 +557,15 @@ public final class BatchClientImpl {
      * @return the result of listing the Pools in an Account as paginated response with {@link PagedIterable}.
      */
     @ServiceMethod(returns = ReturnType.COLLECTION)
-    public PagedIterable<BinaryData> listPools(RequestOptions requestOptions) {
+    public PagedIterable<BinaryData> listPools1(RequestOptions requestOptions) {
         RequestOptions requestOptionsForNextPage = new RequestOptions();
         requestOptionsForNextPage.setContext(
                 requestOptions != null && requestOptions.getContext() != null
                         ? requestOptions.getContext()
                         : Context.NONE);
         return new PagedIterable<>(
-                () -> listPoolsSinglePage(requestOptions),
-                nextLink -> listPoolsNextSinglePage(nextLink, requestOptionsForNextPage));
+                () -> listPools1SinglePage(requestOptions),
+                nextLink -> listPools1NextSinglePage(nextLink, requestOptionsForNextPage));
     }
 
     /**
@@ -777,14 +790,7 @@ public final class BatchClientImpl {
     @ServiceMethod(returns = ReturnType.SINGLE)
     private Mono<PagedResponse<BinaryData>> listPools3SinglePageAsync(RequestOptions requestOptions) {
         final String accept = "application/json";
-        return FluxUtil.withContext(
-                        context ->
-                                service.listPools3(
-                                        this.getEndpoint(),
-                                        this.getServiceVersion().getVersion(),
-                                        accept,
-                                        requestOptions,
-                                        context))
+        return FluxUtil.withContext(context -> service.listPools3(this.getEndpoint(), accept, requestOptions, context))
                 .map(
                         res ->
                                 new PagedResponseBase<>(
@@ -877,13 +883,7 @@ public final class BatchClientImpl {
     @ServiceMethod(returns = ReturnType.SINGLE)
     private PagedResponse<BinaryData> listPools3SinglePage(RequestOptions requestOptions) {
         final String accept = "application/json";
-        Response<BinaryData> res =
-                service.listPools3Sync(
-                        this.getEndpoint(),
-                        this.getServiceVersion().getVersion(),
-                        accept,
-                        requestOptions,
-                        Context.NONE);
+        Response<BinaryData> res = service.listPools3Sync(this.getEndpoint(), accept, requestOptions, Context.NONE);
         return new PagedResponseBase<>(
                 res.getRequest(),
                 res.getStatusCode(),
@@ -962,11 +962,12 @@ public final class BatchClientImpl {
      *     of {@link Mono}.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private Mono<PagedResponse<BinaryData>> listPoolsNextSinglePageAsync(
+    private Mono<PagedResponse<BinaryData>> listPools1NextSinglePageAsync(
             String nextLink, RequestOptions requestOptions) {
         final String accept = "application/json";
         return FluxUtil.withContext(
-                        context -> service.listPoolsNext(nextLink, this.getEndpoint(), accept, requestOptions, context))
+                        context ->
+                                service.listPools1Next(nextLink, this.getEndpoint(), accept, requestOptions, context))
                 .map(
                         res ->
                                 new PagedResponseBase<>(
@@ -1001,10 +1002,10 @@ public final class BatchClientImpl {
      * @return the result of listing the Pools in an Account along with {@link PagedResponse}.
      */
     @ServiceMethod(returns = ReturnType.SINGLE)
-    private PagedResponse<BinaryData> listPoolsNextSinglePage(String nextLink, RequestOptions requestOptions) {
+    private PagedResponse<BinaryData> listPools1NextSinglePage(String nextLink, RequestOptions requestOptions) {
         final String accept = "application/json";
         Response<BinaryData> res =
-                service.listPoolsNextSync(nextLink, this.getEndpoint(), accept, requestOptions, Context.NONE);
+                service.listPools1NextSync(nextLink, this.getEndpoint(), accept, requestOptions, Context.NONE);
         return new PagedResponseBase<>(
                 res.getRequest(),
                 res.getStatusCode(),

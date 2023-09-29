@@ -35,7 +35,7 @@ _SERIALIZER = Serializer()
 _SERIALIZER.client_side_validation = False
 
 
-def build_batch_list_pools_request(
+def build_batch_list_pools1_request(
     *,
     _filter: Optional[str] = None,
     _select: Optional[List[str]] = None,
@@ -45,12 +45,14 @@ def build_batch_list_pools_request(
     _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
     _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
+    api_version: str = kwargs.pop("api_version", _params.pop("api-version", "2023-05-01.17.0"))
     accept = _headers.pop("Accept", "application/json")
 
     # Construct URL
-    _url = "/pools"
+    _url = "/pools1"
 
     # Construct parameters
+    _params["api-version"] = _SERIALIZER.query("api_version", api_version, "str")
     if _filter is not None:
         _params["$filter"] = _SERIALIZER.query("filter", _filter, "str")
     if _select is not None:
@@ -103,14 +105,12 @@ def build_batch_list_pools3_request(
     _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
     _params = case_insensitive_dict(kwargs.pop("params", {}) or {})
 
-    api_version: str = kwargs.pop("api_version", _params.pop("api-version", "2023-05-01.17.0"))
     accept = _headers.pop("Accept", "application/json")
 
     # Construct URL
     _url = "/pools3"
 
     # Construct parameters
-    _params["api-version"] = _SERIALIZER.query("api_version", api_version, "str")
     if _filter is not None:
         _params["$filter"] = _SERIALIZER.query("filter", _filter, "str")
     if _select is not None:
@@ -126,7 +126,7 @@ def build_batch_list_pools3_request(
 
 class BatchClientOperationsMixin(BatchClientMixinABC):
     @distributed_trace
-    def list_pools(
+    def list_pools1(
         self,
         *,
         _filter: Optional[str] = None,
@@ -165,10 +165,11 @@ class BatchClientOperationsMixin(BatchClientMixinABC):
         def prepare_request(next_link=None):
             if not next_link:
 
-                request = build_batch_list_pools_request(
+                request = build_batch_list_pools1_request(
                     _filter=_filter,
                     _select=_select,
                     _expand=_expand,
+                    api_version=self._config.api_version,
                     headers=_headers,
                     params=_params,
                 )
@@ -355,7 +356,6 @@ class BatchClientOperationsMixin(BatchClientMixinABC):
                     _filter=_filter,
                     _select=_select,
                     _expand=_expand,
-                    api_version=self._config.api_version,
                     headers=_headers,
                     params=_params,
                 )

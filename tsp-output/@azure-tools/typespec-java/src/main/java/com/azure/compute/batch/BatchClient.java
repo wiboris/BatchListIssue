@@ -71,65 +71,6 @@ public final class BatchClient {
      */
     @Generated
     @ServiceMethod(returns = ReturnType.COLLECTION)
-    public PagedIterable<BinaryData> listPools(RequestOptions requestOptions) {
-        return this.serviceClient.listPools(requestOptions);
-    }
-
-    /**
-     * Lists all of the Pools in the specified Account.
-     *
-     * @throws HttpResponseException thrown if the request is rejected by server.
-     * @throws ClientAuthenticationException thrown if the request is rejected by server on status code 401.
-     * @throws ResourceNotFoundException thrown if the request is rejected by server on status code 404.
-     * @throws ResourceModifiedException thrown if the request is rejected by server on status code 409.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the result of listing the Pools in an Account as paginated response with {@link PagedIterable}.
-     */
-    @Generated
-    @ServiceMethod(returns = ReturnType.COLLECTION)
-    public PagedIterable<BatchPool> listPools() {
-        // Generated convenience method for listPools
-        RequestOptions requestOptions = new RequestOptions();
-        return serviceClient
-                .listPools(requestOptions)
-                .mapPage(bodyItemValue -> bodyItemValue.toObject(BatchPool.class));
-    }
-
-    /**
-     * Lists all of the Pools in the specified Account.
-     *
-     * <p><strong>Query Parameters</strong>
-     *
-     * <table border="1">
-     *     <caption>Query Parameters</caption>
-     *     <tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr>
-     *     <tr><td>$filter</td><td>String</td><td>No</td><td>An OData $filter clause. For more information on constructing this filter, see
-     * https://docs.microsoft.com/en-us/rest/api/batchservice/odata-filters-in-batch#list-pools.</td></tr>
-     *     <tr><td>$select</td><td>List&lt;String&gt;</td><td>No</td><td>An OData $select clause. In the form of "," separated string.</td></tr>
-     *     <tr><td>$expand</td><td>List&lt;String&gt;</td><td>No</td><td>An OData $expand clause. In the form of "," separated string.</td></tr>
-     * </table>
-     *
-     * You can add these to a request with {@link RequestOptions#addQueryParam}
-     *
-     * <p><strong>Response Body Schema</strong>
-     *
-     * <pre>{@code
-     * {
-     *     id: String (Optional)
-     *     displayName: String (Optional)
-     *     url: String (Optional)
-     * }
-     * }</pre>
-     *
-     * @param requestOptions The options to configure the HTTP request before HTTP client sends it.
-     * @throws HttpResponseException thrown if the request is rejected by server.
-     * @throws ClientAuthenticationException thrown if the request is rejected by server on status code 401.
-     * @throws ResourceNotFoundException thrown if the request is rejected by server on status code 404.
-     * @throws ResourceModifiedException thrown if the request is rejected by server on status code 409.
-     * @return the result of listing the Pools in an Account as paginated response with {@link PagedIterable}.
-     */
-    @Generated
-    @ServiceMethod(returns = ReturnType.COLLECTION)
     public PagedIterable<BinaryData> listPools2(RequestOptions requestOptions) {
         return this.serviceClient.listPools2(requestOptions);
     }
@@ -151,50 +92,6 @@ public final class BatchClient {
         RequestOptions requestOptions = new RequestOptions();
         return serviceClient
                 .listPools2(requestOptions)
-                .mapPage(bodyItemValue -> bodyItemValue.toObject(BatchPool.class));
-    }
-
-    /**
-     * Lists all of the Pools in the specified Account.
-     *
-     * @param filter An OData $filter clause. For more information on constructing this filter, see
-     *     https://docs.microsoft.com/en-us/rest/api/batchservice/odata-filters-in-batch#list-pools.
-     * @param select An OData $select clause.
-     * @param expand An OData $expand clause.
-     * @throws IllegalArgumentException thrown if parameters fail the validation.
-     * @throws HttpResponseException thrown if the request is rejected by server.
-     * @throws ClientAuthenticationException thrown if the request is rejected by server on status code 401.
-     * @throws ResourceNotFoundException thrown if the request is rejected by server on status code 404.
-     * @throws ResourceModifiedException thrown if the request is rejected by server on status code 409.
-     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
-     * @return the result of listing the Pools in an Account as paginated response with {@link PagedIterable}.
-     */
-    @Generated
-    @ServiceMethod(returns = ReturnType.COLLECTION)
-    public PagedIterable<BatchPool> listPools(String filter, List<String> select, List<String> expand) {
-        // Generated convenience method for listPools
-        RequestOptions requestOptions = new RequestOptions();
-        if (filter != null) {
-            requestOptions.addQueryParam("$filter", filter, false);
-        }
-        if (select != null) {
-            requestOptions.addQueryParam(
-                    "$select",
-                    select.stream()
-                            .map(paramItemValue -> Objects.toString(paramItemValue, ""))
-                            .collect(Collectors.joining(",")),
-                    false);
-        }
-        if (expand != null) {
-            requestOptions.addQueryParam(
-                    "$expand",
-                    expand.stream()
-                            .map(paramItemValue -> Objects.toString(paramItemValue, ""))
-                            .collect(Collectors.joining(",")),
-                    false);
-        }
-        return serviceClient
-                .listPools(requestOptions)
                 .mapPage(bodyItemValue -> bodyItemValue.toObject(BatchPool.class));
     }
 
@@ -342,6 +239,109 @@ public final class BatchClient {
         RequestOptions requestOptions = new RequestOptions();
         return serviceClient
                 .listPools3(requestOptions)
+                .mapPage(bodyItemValue -> bodyItemValue.toObject(BatchPool.class));
+    }
+
+    /**
+     * Lists all of the Pools in the specified Account.
+     *
+     * <p><strong>Query Parameters</strong>
+     *
+     * <table border="1">
+     *     <caption>Query Parameters</caption>
+     *     <tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr>
+     *     <tr><td>$filter</td><td>String</td><td>No</td><td>An OData $filter clause. For more information on constructing this filter, see
+     * https://docs.microsoft.com/en-us/rest/api/batchservice/odata-filters-in-batch#list-pools.</td></tr>
+     *     <tr><td>$select</td><td>List&lt;String&gt;</td><td>No</td><td>An OData $select clause. In the form of "," separated string.</td></tr>
+     *     <tr><td>$expand</td><td>List&lt;String&gt;</td><td>No</td><td>An OData $expand clause. In the form of "," separated string.</td></tr>
+     * </table>
+     *
+     * You can add these to a request with {@link RequestOptions#addQueryParam}
+     *
+     * <p><strong>Response Body Schema</strong>
+     *
+     * <pre>{@code
+     * {
+     *     id: String (Optional)
+     *     displayName: String (Optional)
+     *     url: String (Optional)
+     * }
+     * }</pre>
+     *
+     * @param requestOptions The options to configure the HTTP request before HTTP client sends it.
+     * @throws HttpResponseException thrown if the request is rejected by server.
+     * @throws ClientAuthenticationException thrown if the request is rejected by server on status code 401.
+     * @throws ResourceNotFoundException thrown if the request is rejected by server on status code 404.
+     * @throws ResourceModifiedException thrown if the request is rejected by server on status code 409.
+     * @return the result of listing the Pools in an Account as paginated response with {@link PagedIterable}.
+     */
+    @Generated
+    @ServiceMethod(returns = ReturnType.COLLECTION)
+    public PagedIterable<BinaryData> listPools1(RequestOptions requestOptions) {
+        return this.serviceClient.listPools1(requestOptions);
+    }
+
+    /**
+     * Lists all of the Pools in the specified Account.
+     *
+     * @param filter An OData $filter clause. For more information on constructing this filter, see
+     *     https://docs.microsoft.com/en-us/rest/api/batchservice/odata-filters-in-batch#list-pools.
+     * @param select An OData $select clause.
+     * @param expand An OData $expand clause.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws HttpResponseException thrown if the request is rejected by server.
+     * @throws ClientAuthenticationException thrown if the request is rejected by server on status code 401.
+     * @throws ResourceNotFoundException thrown if the request is rejected by server on status code 404.
+     * @throws ResourceModifiedException thrown if the request is rejected by server on status code 409.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return the result of listing the Pools in an Account as paginated response with {@link PagedIterable}.
+     */
+    @Generated
+    @ServiceMethod(returns = ReturnType.COLLECTION)
+    public PagedIterable<BatchPool> listPools1(String filter, List<String> select, List<String> expand) {
+        // Generated convenience method for listPools1
+        RequestOptions requestOptions = new RequestOptions();
+        if (filter != null) {
+            requestOptions.addQueryParam("$filter", filter, false);
+        }
+        if (select != null) {
+            requestOptions.addQueryParam(
+                    "$select",
+                    select.stream()
+                            .map(paramItemValue -> Objects.toString(paramItemValue, ""))
+                            .collect(Collectors.joining(",")),
+                    false);
+        }
+        if (expand != null) {
+            requestOptions.addQueryParam(
+                    "$expand",
+                    expand.stream()
+                            .map(paramItemValue -> Objects.toString(paramItemValue, ""))
+                            .collect(Collectors.joining(",")),
+                    false);
+        }
+        return serviceClient
+                .listPools1(requestOptions)
+                .mapPage(bodyItemValue -> bodyItemValue.toObject(BatchPool.class));
+    }
+
+    /**
+     * Lists all of the Pools in the specified Account.
+     *
+     * @throws HttpResponseException thrown if the request is rejected by server.
+     * @throws ClientAuthenticationException thrown if the request is rejected by server on status code 401.
+     * @throws ResourceNotFoundException thrown if the request is rejected by server on status code 404.
+     * @throws ResourceModifiedException thrown if the request is rejected by server on status code 409.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return the result of listing the Pools in an Account as paginated response with {@link PagedIterable}.
+     */
+    @Generated
+    @ServiceMethod(returns = ReturnType.COLLECTION)
+    public PagedIterable<BatchPool> listPools1() {
+        // Generated convenience method for listPools1
+        RequestOptions requestOptions = new RequestOptions();
+        return serviceClient
+                .listPools1(requestOptions)
                 .mapPage(bodyItemValue -> bodyItemValue.toObject(BatchPool.class));
     }
 }

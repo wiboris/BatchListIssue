@@ -53,11 +53,11 @@ namespace Azure.Compute.Batch
         /// <param name="select"> An OData $select clause. </param>
         /// <param name="expand"> An OData $expand clause. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <include file="Docs/BatchClient.xml" path="doc/members/member[@name='GetPoolsAsync(string,IEnumerable{string},IEnumerable{string},CancellationToken)']/*" />
-        public virtual async Task<Response<BatchPoolListResult>> GetPoolsAsync(string filter = null, IEnumerable<string> select = null, IEnumerable<string> expand = null, CancellationToken cancellationToken = default)
+        /// <include file="Docs/BatchClient.xml" path="doc/members/member[@name='GetPools1sAsync(string,IEnumerable{string},IEnumerable{string},CancellationToken)']/*" />
+        public virtual async Task<Response<BatchPoolListResult>> GetPools1sAsync(string filter = null, IEnumerable<string> select = null, IEnumerable<string> expand = null, CancellationToken cancellationToken = default)
         {
             RequestContext context = FromCancellationToken(cancellationToken);
-            Response response = await GetPoolsAsync(filter, select, expand, context).ConfigureAwait(false);
+            Response response = await GetPools1sAsync(filter, select, expand, context).ConfigureAwait(false);
             return Response.FromValue(BatchPoolListResult.FromResponse(response), response);
         }
 
@@ -69,11 +69,11 @@ namespace Azure.Compute.Batch
         /// <param name="select"> An OData $select clause. </param>
         /// <param name="expand"> An OData $expand clause. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <include file="Docs/BatchClient.xml" path="doc/members/member[@name='GetPools(string,IEnumerable{string},IEnumerable{string},CancellationToken)']/*" />
-        public virtual Response<BatchPoolListResult> GetPools(string filter = null, IEnumerable<string> select = null, IEnumerable<string> expand = null, CancellationToken cancellationToken = default)
+        /// <include file="Docs/BatchClient.xml" path="doc/members/member[@name='GetPools1s(string,IEnumerable{string},IEnumerable{string},CancellationToken)']/*" />
+        public virtual Response<BatchPoolListResult> GetPools1s(string filter = null, IEnumerable<string> select = null, IEnumerable<string> expand = null, CancellationToken cancellationToken = default)
         {
             RequestContext context = FromCancellationToken(cancellationToken);
-            Response response = GetPools(filter, select, expand, context);
+            Response response = GetPools1s(filter, select, expand, context);
             return Response.FromValue(BatchPoolListResult.FromResponse(response), response);
         }
 
@@ -87,7 +87,7 @@ namespace Azure.Compute.Batch
         /// </item>
         /// <item>
         /// <description>
-        /// Please try the simpler <see cref="GetPoolsAsync(string,IEnumerable{string},IEnumerable{string},CancellationToken)"/> convenience overload with strongly typed models first.
+        /// Please try the simpler <see cref="GetPools1sAsync(string,IEnumerable{string},IEnumerable{string},CancellationToken)"/> convenience overload with strongly typed models first.
         /// </description>
         /// </item>
         /// </list>
@@ -101,14 +101,14 @@ namespace Azure.Compute.Batch
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/BatchClient.xml" path="doc/members/member[@name='GetPoolsAsync(string,IEnumerable{string},IEnumerable{string},RequestContext)']/*" />
-        public virtual async Task<Response> GetPoolsAsync(string filter, IEnumerable<string> select, IEnumerable<string> expand, RequestContext context)
+        /// <include file="Docs/BatchClient.xml" path="doc/members/member[@name='GetPools1sAsync(string,IEnumerable{string},IEnumerable{string},RequestContext)']/*" />
+        public virtual async Task<Response> GetPools1sAsync(string filter, IEnumerable<string> select, IEnumerable<string> expand, RequestContext context)
         {
-            using var scope = ClientDiagnostics.CreateScope("BatchClient.GetPools");
+            using var scope = ClientDiagnostics.CreateScope("BatchClient.GetPools1s");
             scope.Start();
             try
             {
-                using HttpMessage message = CreateGetPoolsRequest(filter, select, expand, context);
+                using HttpMessage message = CreateGetPools1sRequest(filter, select, expand, context);
                 return await _pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
             }
             catch (Exception e)
@@ -128,7 +128,7 @@ namespace Azure.Compute.Batch
         /// </item>
         /// <item>
         /// <description>
-        /// Please try the simpler <see cref="GetPools(string,IEnumerable{string},IEnumerable{string},CancellationToken)"/> convenience overload with strongly typed models first.
+        /// Please try the simpler <see cref="GetPools1s(string,IEnumerable{string},IEnumerable{string},CancellationToken)"/> convenience overload with strongly typed models first.
         /// </description>
         /// </item>
         /// </list>
@@ -142,128 +142,14 @@ namespace Azure.Compute.Batch
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/BatchClient.xml" path="doc/members/member[@name='GetPools(string,IEnumerable{string},IEnumerable{string},RequestContext)']/*" />
-        public virtual Response GetPools(string filter, IEnumerable<string> select, IEnumerable<string> expand, RequestContext context)
+        /// <include file="Docs/BatchClient.xml" path="doc/members/member[@name='GetPools1s(string,IEnumerable{string},IEnumerable{string},RequestContext)']/*" />
+        public virtual Response GetPools1s(string filter, IEnumerable<string> select, IEnumerable<string> expand, RequestContext context)
         {
-            using var scope = ClientDiagnostics.CreateScope("BatchClient.GetPools");
+            using var scope = ClientDiagnostics.CreateScope("BatchClient.GetPools1s");
             scope.Start();
             try
             {
-                using HttpMessage message = CreateGetPoolsRequest(filter, select, expand, context);
-                return _pipeline.ProcessMessage(message, context);
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
-        }
-
-        /// <summary> Lists all of the Pools in the specified Account. </summary>
-        /// <param name="filter">
-        /// An OData $filter clause. For more information on constructing this filter, see
-        /// https://docs.microsoft.com/en-us/rest/api/batchservice/odata-filters-in-batch#list-pools.
-        /// </param>
-        /// <param name="select"> An OData $select clause. </param>
-        /// <param name="expand"> An OData $expand clause. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <include file="Docs/BatchClient.xml" path="doc/members/member[@name='GetPools3sAsync(string,IEnumerable{string},IEnumerable{string},CancellationToken)']/*" />
-        public virtual async Task<Response<BatchPoolListResult>> GetPools3sAsync(string filter = null, IEnumerable<string> select = null, IEnumerable<string> expand = null, CancellationToken cancellationToken = default)
-        {
-            RequestContext context = FromCancellationToken(cancellationToken);
-            Response response = await GetPools3sAsync(filter, select, expand, context).ConfigureAwait(false);
-            return Response.FromValue(BatchPoolListResult.FromResponse(response), response);
-        }
-
-        /// <summary> Lists all of the Pools in the specified Account. </summary>
-        /// <param name="filter">
-        /// An OData $filter clause. For more information on constructing this filter, see
-        /// https://docs.microsoft.com/en-us/rest/api/batchservice/odata-filters-in-batch#list-pools.
-        /// </param>
-        /// <param name="select"> An OData $select clause. </param>
-        /// <param name="expand"> An OData $expand clause. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <include file="Docs/BatchClient.xml" path="doc/members/member[@name='GetPools3s(string,IEnumerable{string},IEnumerable{string},CancellationToken)']/*" />
-        public virtual Response<BatchPoolListResult> GetPools3s(string filter = null, IEnumerable<string> select = null, IEnumerable<string> expand = null, CancellationToken cancellationToken = default)
-        {
-            RequestContext context = FromCancellationToken(cancellationToken);
-            Response response = GetPools3s(filter, select, expand, context);
-            return Response.FromValue(BatchPoolListResult.FromResponse(response), response);
-        }
-
-        /// <summary>
-        /// [Protocol Method] Lists all of the Pools in the specified Account.
-        /// <list type="bullet">
-        /// <item>
-        /// <description>
-        /// This <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/ProtocolMethods.md">protocol method</see> allows explicit creation of the request and processing of the response for advanced scenarios.
-        /// </description>
-        /// </item>
-        /// <item>
-        /// <description>
-        /// Please try the simpler <see cref="GetPools3sAsync(string,IEnumerable{string},IEnumerable{string},CancellationToken)"/> convenience overload with strongly typed models first.
-        /// </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="filter">
-        /// An OData $filter clause. For more information on constructing this filter, see
-        /// https://docs.microsoft.com/en-us/rest/api/batchservice/odata-filters-in-batch#list-pools.
-        /// </param>
-        /// <param name="select"> An OData $select clause. </param>
-        /// <param name="expand"> An OData $expand clause. </param>
-        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
-        /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/BatchClient.xml" path="doc/members/member[@name='GetPools3sAsync(string,IEnumerable{string},IEnumerable{string},RequestContext)']/*" />
-        public virtual async Task<Response> GetPools3sAsync(string filter, IEnumerable<string> select, IEnumerable<string> expand, RequestContext context)
-        {
-            using var scope = ClientDiagnostics.CreateScope("BatchClient.GetPools3s");
-            scope.Start();
-            try
-            {
-                using HttpMessage message = CreateGetPools3sRequest(filter, select, expand, context);
-                return await _pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
-            }
-            catch (Exception e)
-            {
-                scope.Failed(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// [Protocol Method] Lists all of the Pools in the specified Account.
-        /// <list type="bullet">
-        /// <item>
-        /// <description>
-        /// This <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/ProtocolMethods.md">protocol method</see> allows explicit creation of the request and processing of the response for advanced scenarios.
-        /// </description>
-        /// </item>
-        /// <item>
-        /// <description>
-        /// Please try the simpler <see cref="GetPools3s(string,IEnumerable{string},IEnumerable{string},CancellationToken)"/> convenience overload with strongly typed models first.
-        /// </description>
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <param name="filter">
-        /// An OData $filter clause. For more information on constructing this filter, see
-        /// https://docs.microsoft.com/en-us/rest/api/batchservice/odata-filters-in-batch#list-pools.
-        /// </param>
-        /// <param name="select"> An OData $select clause. </param>
-        /// <param name="expand"> An OData $expand clause. </param>
-        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
-        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
-        /// <returns> The response returned from the service. </returns>
-        /// <include file="Docs/BatchClient.xml" path="doc/members/member[@name='GetPools3s(string,IEnumerable{string},IEnumerable{string},RequestContext)']/*" />
-        public virtual Response GetPools3s(string filter, IEnumerable<string> select, IEnumerable<string> expand, RequestContext context)
-        {
-            using var scope = ClientDiagnostics.CreateScope("BatchClient.GetPools3s");
-            scope.Start();
-            try
-            {
-                using HttpMessage message = CreateGetPools3sRequest(filter, select, expand, context);
+                using HttpMessage message = CreateGetPools1sRequest(filter, select, expand, context);
                 return _pipeline.ProcessMessage(message, context);
             }
             catch (Exception e)
@@ -282,12 +168,11 @@ namespace Azure.Compute.Batch
         /// <param name="expand"> An OData $expand clause. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <include file="Docs/BatchClient.xml" path="doc/members/member[@name='GetPools2sAsync(string,IEnumerable{string},IEnumerable{string},CancellationToken)']/*" />
-        public virtual AsyncPageable<BatchPool> GetPools2sAsync(string filter = null, IEnumerable<string> select = null, IEnumerable<string> expand = null, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<BatchPoolListResult>> GetPools2sAsync(string filter = null, IEnumerable<string> select = null, IEnumerable<string> expand = null, CancellationToken cancellationToken = default)
         {
-            RequestContext context = cancellationToken.CanBeCanceled ? new RequestContext { CancellationToken = cancellationToken } : null;
-            HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetPools2sRequest(filter, select, expand, context);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => CreateGetPools2sNextPageRequest(nextLink, filter, select, expand, context);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, BatchPool.DeserializeBatchPool, ClientDiagnostics, _pipeline, "BatchClient.GetPools2s", "value", "odata.nextLink", context);
+            RequestContext context = FromCancellationToken(cancellationToken);
+            Response response = await GetPools2sAsync(filter, select, expand, context).ConfigureAwait(false);
+            return Response.FromValue(BatchPoolListResult.FromResponse(response), response);
         }
 
         /// <summary> Lists all of the Pools in the specified Account. </summary>
@@ -299,12 +184,11 @@ namespace Azure.Compute.Batch
         /// <param name="expand"> An OData $expand clause. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <include file="Docs/BatchClient.xml" path="doc/members/member[@name='GetPools2s(string,IEnumerable{string},IEnumerable{string},CancellationToken)']/*" />
-        public virtual Pageable<BatchPool> GetPools2s(string filter = null, IEnumerable<string> select = null, IEnumerable<string> expand = null, CancellationToken cancellationToken = default)
+        public virtual Response<BatchPoolListResult> GetPools2s(string filter = null, IEnumerable<string> select = null, IEnumerable<string> expand = null, CancellationToken cancellationToken = default)
         {
-            RequestContext context = cancellationToken.CanBeCanceled ? new RequestContext { CancellationToken = cancellationToken } : null;
-            HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetPools2sRequest(filter, select, expand, context);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => CreateGetPools2sNextPageRequest(nextLink, filter, select, expand, context);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, BatchPool.DeserializeBatchPool, ClientDiagnostics, _pipeline, "BatchClient.GetPools2s", "value", "odata.nextLink", context);
+            RequestContext context = FromCancellationToken(cancellationToken);
+            Response response = GetPools2s(filter, select, expand, context);
+            return Response.FromValue(BatchPoolListResult.FromResponse(response), response);
         }
 
         /// <summary>
@@ -330,13 +214,22 @@ namespace Azure.Compute.Batch
         /// <param name="expand"> An OData $expand clause. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
-        /// <returns> The <see cref="AsyncPageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
+        /// <returns> The response returned from the service. </returns>
         /// <include file="Docs/BatchClient.xml" path="doc/members/member[@name='GetPools2sAsync(string,IEnumerable{string},IEnumerable{string},RequestContext)']/*" />
-        public virtual AsyncPageable<BinaryData> GetPools2sAsync(string filter, IEnumerable<string> select, IEnumerable<string> expand, RequestContext context)
+        public virtual async Task<Response> GetPools2sAsync(string filter, IEnumerable<string> select, IEnumerable<string> expand, RequestContext context)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetPools2sRequest(filter, select, expand, context);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => CreateGetPools2sNextPageRequest(nextLink, filter, select, expand, context);
-            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => BinaryData.FromString(e.GetRawText()), ClientDiagnostics, _pipeline, "BatchClient.GetPools2s", "value", "odata.nextLink", context);
+            using var scope = ClientDiagnostics.CreateScope("BatchClient.GetPools2s");
+            scope.Start();
+            try
+            {
+                using HttpMessage message = CreateGetPools2sRequest(filter, select, expand, context);
+                return await _pipeline.ProcessMessageAsync(message, context).ConfigureAwait(false);
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -362,22 +255,130 @@ namespace Azure.Compute.Batch
         /// <param name="expand"> An OData $expand clause. </param>
         /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
         /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
-        /// <returns> The <see cref="Pageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
+        /// <returns> The response returned from the service. </returns>
         /// <include file="Docs/BatchClient.xml" path="doc/members/member[@name='GetPools2s(string,IEnumerable{string},IEnumerable{string},RequestContext)']/*" />
-        public virtual Pageable<BinaryData> GetPools2s(string filter, IEnumerable<string> select, IEnumerable<string> expand, RequestContext context)
+        public virtual Response GetPools2s(string filter, IEnumerable<string> select, IEnumerable<string> expand, RequestContext context)
         {
-            HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetPools2sRequest(filter, select, expand, context);
-            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => CreateGetPools2sNextPageRequest(nextLink, filter, select, expand, context);
-            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => BinaryData.FromString(e.GetRawText()), ClientDiagnostics, _pipeline, "BatchClient.GetPools2s", "value", "odata.nextLink", context);
+            using var scope = ClientDiagnostics.CreateScope("BatchClient.GetPools2s");
+            scope.Start();
+            try
+            {
+                using HttpMessage message = CreateGetPools2sRequest(filter, select, expand, context);
+                return _pipeline.ProcessMessage(message, context);
+            }
+            catch (Exception e)
+            {
+                scope.Failed(e);
+                throw;
+            }
         }
 
-        internal HttpMessage CreateGetPoolsRequest(string filter, IEnumerable<string> select, IEnumerable<string> expand, RequestContext context)
+        /// <summary> Lists all of the Pools in the specified Account. </summary>
+        /// <param name="filter">
+        /// An OData $filter clause. For more information on constructing this filter, see
+        /// https://docs.microsoft.com/en-us/rest/api/batchservice/odata-filters-in-batch#list-pools.
+        /// </param>
+        /// <param name="select"> An OData $select clause. </param>
+        /// <param name="expand"> An OData $expand clause. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <include file="Docs/BatchClient.xml" path="doc/members/member[@name='GetPools3sAsync(string,IEnumerable{string},IEnumerable{string},CancellationToken)']/*" />
+        public virtual AsyncPageable<BatchPool> GetPools3sAsync(string filter = null, IEnumerable<string> select = null, IEnumerable<string> expand = null, CancellationToken cancellationToken = default)
+        {
+            RequestContext context = cancellationToken.CanBeCanceled ? new RequestContext { CancellationToken = cancellationToken } : null;
+            HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetPools3sRequest(filter, select, expand, context);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => CreateGetPools3sNextPageRequest(nextLink, filter, select, expand, context);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, BatchPool.DeserializeBatchPool, ClientDiagnostics, _pipeline, "BatchClient.GetPools3s", "value", "odata.nextLink", context);
+        }
+
+        /// <summary> Lists all of the Pools in the specified Account. </summary>
+        /// <param name="filter">
+        /// An OData $filter clause. For more information on constructing this filter, see
+        /// https://docs.microsoft.com/en-us/rest/api/batchservice/odata-filters-in-batch#list-pools.
+        /// </param>
+        /// <param name="select"> An OData $select clause. </param>
+        /// <param name="expand"> An OData $expand clause. </param>
+        /// <param name="cancellationToken"> The cancellation token to use. </param>
+        /// <include file="Docs/BatchClient.xml" path="doc/members/member[@name='GetPools3s(string,IEnumerable{string},IEnumerable{string},CancellationToken)']/*" />
+        public virtual Pageable<BatchPool> GetPools3s(string filter = null, IEnumerable<string> select = null, IEnumerable<string> expand = null, CancellationToken cancellationToken = default)
+        {
+            RequestContext context = cancellationToken.CanBeCanceled ? new RequestContext { CancellationToken = cancellationToken } : null;
+            HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetPools3sRequest(filter, select, expand, context);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => CreateGetPools3sNextPageRequest(nextLink, filter, select, expand, context);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, BatchPool.DeserializeBatchPool, ClientDiagnostics, _pipeline, "BatchClient.GetPools3s", "value", "odata.nextLink", context);
+        }
+
+        /// <summary>
+        /// [Protocol Method] Lists all of the Pools in the specified Account.
+        /// <list type="bullet">
+        /// <item>
+        /// <description>
+        /// This <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/ProtocolMethods.md">protocol method</see> allows explicit creation of the request and processing of the response for advanced scenarios.
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <description>
+        /// Please try the simpler <see cref="GetPools3sAsync(string,IEnumerable{string},IEnumerable{string},CancellationToken)"/> convenience overload with strongly typed models first.
+        /// </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="filter">
+        /// An OData $filter clause. For more information on constructing this filter, see
+        /// https://docs.microsoft.com/en-us/rest/api/batchservice/odata-filters-in-batch#list-pools.
+        /// </param>
+        /// <param name="select"> An OData $select clause. </param>
+        /// <param name="expand"> An OData $expand clause. </param>
+        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
+        /// <returns> The <see cref="AsyncPageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
+        /// <include file="Docs/BatchClient.xml" path="doc/members/member[@name='GetPools3sAsync(string,IEnumerable{string},IEnumerable{string},RequestContext)']/*" />
+        public virtual AsyncPageable<BinaryData> GetPools3sAsync(string filter, IEnumerable<string> select, IEnumerable<string> expand, RequestContext context)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetPools3sRequest(filter, select, expand, context);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => CreateGetPools3sNextPageRequest(nextLink, filter, select, expand, context);
+            return GeneratorPageableHelpers.CreateAsyncPageable(FirstPageRequest, NextPageRequest, e => BinaryData.FromString(e.GetRawText()), ClientDiagnostics, _pipeline, "BatchClient.GetPools3s", "value", "odata.nextLink", context);
+        }
+
+        /// <summary>
+        /// [Protocol Method] Lists all of the Pools in the specified Account.
+        /// <list type="bullet">
+        /// <item>
+        /// <description>
+        /// This <see href="https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/core/Azure.Core/samples/ProtocolMethods.md">protocol method</see> allows explicit creation of the request and processing of the response for advanced scenarios.
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <description>
+        /// Please try the simpler <see cref="GetPools3s(string,IEnumerable{string},IEnumerable{string},CancellationToken)"/> convenience overload with strongly typed models first.
+        /// </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="filter">
+        /// An OData $filter clause. For more information on constructing this filter, see
+        /// https://docs.microsoft.com/en-us/rest/api/batchservice/odata-filters-in-batch#list-pools.
+        /// </param>
+        /// <param name="select"> An OData $select clause. </param>
+        /// <param name="expand"> An OData $expand clause. </param>
+        /// <param name="context"> The request context, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="RequestFailedException"> Service returned a non-success status code. </exception>
+        /// <returns> The <see cref="Pageable{T}"/> from the service containing a list of <see cref="BinaryData"/> objects. Details of the body schema for each item in the collection are in the Remarks section below. </returns>
+        /// <include file="Docs/BatchClient.xml" path="doc/members/member[@name='GetPools3s(string,IEnumerable{string},IEnumerable{string},RequestContext)']/*" />
+        public virtual Pageable<BinaryData> GetPools3s(string filter, IEnumerable<string> select, IEnumerable<string> expand, RequestContext context)
+        {
+            HttpMessage FirstPageRequest(int? pageSizeHint) => CreateGetPools3sRequest(filter, select, expand, context);
+            HttpMessage NextPageRequest(int? pageSizeHint, string nextLink) => CreateGetPools3sNextPageRequest(nextLink, filter, select, expand, context);
+            return GeneratorPageableHelpers.CreatePageable(FirstPageRequest, NextPageRequest, e => BinaryData.FromString(e.GetRawText()), ClientDiagnostics, _pipeline, "BatchClient.GetPools3s", "value", "odata.nextLink", context);
+        }
+
+        internal HttpMessage CreateGetPools1sRequest(string filter, IEnumerable<string> select, IEnumerable<string> expand, RequestContext context)
         {
             var message = _pipeline.CreateMessage(context, ResponseClassifier200);
             var request = message.Request;
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
-            uri.AppendPath("/pools", false);
+            uri.AppendPath("/pools1", false);
+            uri.AppendQuery("api-version", _apiVersion, true);
             if (filter != null)
             {
                 uri.AppendQuery("$filter", filter, true);
@@ -390,7 +391,6 @@ namespace Azure.Compute.Batch
             {
                 uri.AppendQueryDelimited("$expand", expand, ",", true);
             }
-            uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
             return message;
@@ -428,7 +428,6 @@ namespace Azure.Compute.Batch
             request.Method = RequestMethod.Get;
             var uri = new RawRequestUriBuilder();
             uri.AppendPath("/pools3", false);
-            uri.AppendQuery("api-version", _apiVersion, true);
             if (filter != null)
             {
                 uri.AppendQuery("$filter", filter, true);
@@ -441,12 +440,13 @@ namespace Azure.Compute.Batch
             {
                 uri.AppendQueryDelimited("$expand", expand, ",", true);
             }
+            uri.AppendQuery("api-version", _apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
             return message;
         }
 
-        internal HttpMessage CreateGetPools2sNextPageRequest(string nextLink, string filter, IEnumerable<string> select, IEnumerable<string> expand, RequestContext context)
+        internal HttpMessage CreateGetPools3sNextPageRequest(string nextLink, string filter, IEnumerable<string> select, IEnumerable<string> expand, RequestContext context)
         {
             var message = _pipeline.CreateMessage(context, ResponseClassifier200);
             var request = message.Request;

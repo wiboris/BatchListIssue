@@ -26,9 +26,9 @@ from azure.core.utils import case_insensitive_dict
 from ... import models as _models
 from ..._model_base import _deserialize
 from ..._operations._operations import (
+    build_batch_list_pools1_request,
     build_batch_list_pools2_request,
     build_batch_list_pools3_request,
-    build_batch_list_pools_request,
 )
 from .._vendor import BatchClientMixinABC
 
@@ -38,7 +38,7 @@ ClsType = Optional[Callable[[PipelineResponse[HttpRequest, AsyncHttpResponse], T
 
 class BatchClientOperationsMixin(BatchClientMixinABC):
     @distributed_trace
-    def list_pools(
+    def list_pools1(
         self,
         *,
         _filter: Optional[str] = None,
@@ -77,10 +77,11 @@ class BatchClientOperationsMixin(BatchClientMixinABC):
         def prepare_request(next_link=None):
             if not next_link:
 
-                request = build_batch_list_pools_request(
+                request = build_batch_list_pools1_request(
                     _filter=_filter,
                     _select=_select,
                     _expand=_expand,
+                    api_version=self._config.api_version,
                     headers=_headers,
                     params=_params,
                 )
@@ -267,7 +268,6 @@ class BatchClientOperationsMixin(BatchClientMixinABC):
                     _filter=_filter,
                     _select=_select,
                     _expand=_expand,
-                    api_version=self._config.api_version,
                     headers=_headers,
                     params=_params,
                 )
