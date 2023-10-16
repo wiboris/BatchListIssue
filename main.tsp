@@ -33,21 +33,21 @@ interface Pools {
     @get
     listPools1 is RpcOperation<
         BatchRequestHeaders,
-        BatchResponseHeaders & BatchPoolListResult,
-        {},
+        BatchPoolListResult,
+        BatchResponseHeaderTrait,
         BatchError
     >;
 
     @doc("Lists all of the Pools in the specified Account.")
     @route("/pools2")
     @get
-    listPools2(...BatchRequestHeaders): (BatchResponseHeaders &
-        BatchPoolListResult) | BatchError;
+    listPools2(...BatchRequestHeaders): (BatchResponseHeaders & BatchPoolListResult) | BatchError;
 
     @doc("Lists all of the Pools in the specified Account.")
     @route("/pools3")
     @get
     listPools3(...BatchRequestHeaders): BatchPoolListResult | BatchError;
+
 }
 
 #suppress "@azure-tools/typespec-azure-core/casing-style" "The names of Model types must use camelCase"
@@ -94,6 +94,28 @@ model BatchResponseHeaders {
     @encode(DateTimeKnownEncoding.rfc7231)
     `Last-Modified`?: utcDateTime;
 }
+
+alias BatchResponseHdr = {
+    @doc("The client-request-id provided by the client during the request. This will be returned only if the return-client-request-id parameter was set to true.")
+    @header
+    `client-request-id`?: string;
+
+    @doc("A unique identifier for the request that was made to the Batch service. If a request is consistently failing and you have verified that the request is properly formulated, you may use this value to report the error to Microsoft. In your report, include the value of this request ID, the approximate time that the request was made, the Batch Account against which the request was made, and the region that Account resides in.")
+    @header
+    `request-id`?: string;
+
+    @doc("The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.")
+    @header
+    @projectedName("python", "etag")
+    ETag?: string;
+
+    @doc("The time at which the resource was last modified.")
+    @header
+    @encode(DateTimeKnownEncoding.rfc7231)
+    `Last-Modified`?: utcDateTime;
+  };
+  
+  alias BatchResponseHeaderTrait = Azure.Core.Traits.ResponseHeadersTrait<BatchResponseHdr>;
 
 @doc("The result of listing the Pools in an Account.")
 @pagedResult
